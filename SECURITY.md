@@ -2,8 +2,8 @@
 
 ## Supported versions
 
-Only the latest released version of `openclaw-memory-inject` receives security
-fixes. Upgrade to the newest tag before reporting.
+Only the latest released version of `@dannyge/openclaw-memory-inject` receives
+security fixes. Upgrade to the newest tag before reporting.
 
 | Version | Supported |
 |---------|-----------|
@@ -12,14 +12,22 @@ fixes. Upgrade to the newest tag before reporting.
 
 ## Reporting a vulnerability
 
-**Please do not open a public GitHub issue for security problems.**
+Open a **GitHub issue** at
+<https://github.com/dannyge/openclaw-memory-inject/issues/new/choose> and tag
+the title with `[security]` (e.g. `[security] memory file path traversal in
+custom memoryDir`). The `bug` template works fine for this.
+
+> **Note on disclosure trade-off:** issues are public, which means a reported
+> vulnerability is visible to everyone *before* a fix is released. This is a
+> conscious choice for a small, single-maintainer plugin where private
+> channels are harder to monitor reliably. If you would prefer to report
+> privately first, email **dannyge@users.noreply.github.com** (a GitHub
+> privacy-forwarding address) and we can coordinate a fix before any public
+> issue is filed.
 
 This plugin reads files from disk and injects their contents into agent
 prompts, so a vulnerability could expose memory files or manipulate agent
-context. Please report suspected vulnerabilities privately so they can be
-triaged before public disclosure.
-
-Email: **dannyge@users.noreply.github.com**
+context.
 
 Include as much of the following as you can:
 
