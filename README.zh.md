@@ -8,7 +8,10 @@ OpenClaw 的 `startupContext` 机制只在**裸 `/new` 或 `/reset`**（空消�
 
 这在多 agent 协作和长期运维中很致命：每次新开一个 thread，agent 就"失忆"了，需要反复解释背景信息。
 
-GitHub issue [#87857](https://github.com/user-attachments/87857) 报告了相同的问题：`startupContext` 不适用于从消息触发的新 session。
+类似的"memory 在 session 间不连续"问题在 OpenClaw 社区被多次报告过：
+
+- [#11618](https://github.com/openclaw/openclaw/issues/11618) — "Hook to inject relevant memory on session start"（已 close/completed）。这个 issue 最终促使 OpenClaw 在 2026.6 引入 `session_start` + `before_prompt_build` 两个 hook，本插件正是基于这个能力构建的。
+- [#32905](https://github.com/openclaw/openclaw/issues/32905) — "session-memory hook saves context but never recalls"（已 close/not_planned）。描述 `session-memory` hook 只能保存、无法在新 session 自动恢复的问题，这正是本插件要直接补上的能力缺口。
 
 ## 解决方案
 
