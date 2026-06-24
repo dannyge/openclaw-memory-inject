@@ -12,10 +12,9 @@ security fixes. Upgrade to the newest tag before reporting.
 
 ## Reporting a vulnerability
 
-Open a **GitHub issue** at
-<https://github.com/dannyge/openclaw-memory-inject/issues/new/choose> and tag
-the title with `[security]` (e.g. `[security] memory file path traversal in
-custom memoryDir`). The `bug` template works fine for this.
+Open a **GitHub issue** using the **Security report** template at
+<https://github.com/dannyge/openclaw-memory-inject/issues/new/choose>. It asks
+for the impact, a proof of concept, and your disclosure preference.
 
 > **Note on disclosure trade-off:** issues are public, which means a reported
 > vulnerability is visible to everyone *before* a fix is released. This is a

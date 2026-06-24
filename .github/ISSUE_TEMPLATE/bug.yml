@@ -74,7 +74,6 @@ body:
     id: memory-dir
     attributes:
       label: Memory files in your workspace
-    attributes:
       description: |
         Output of `ls -la ~/.openclaw/agents/<agentId>/workspace/memory/`
         for the affected agent. Helps confirm the file pattern and mtime.

@@ -40,7 +40,6 @@ body:
     id: use-case
     attributes:
       label: Use case
-    attributes:
       description: |
         Which agent(s) and workflow would benefit? Concrete examples help.
     validations:

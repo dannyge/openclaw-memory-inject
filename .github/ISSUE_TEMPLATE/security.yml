@@ -1,0 +1,89 @@
+name: Security report
+description: Report a security vulnerability or unsafe behavior.
+title: "[security] "
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a security issue.
+
+        **This issue is public.** That means the details below are visible to
+        everyone *before* a fix is released. This is a deliberate trade-off for
+        a small, single-maintainer plugin. If you'd rather report privately
+        first, see the email option in [SECURITY.md](../SECURITY.md) — we can
+        coordinate a fix before any public issue is filed.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the vulnerability
+      description: |
+        What is the issue, and what is its potential impact? For this plugin,
+        relevant impacts include exposing memory file contents, injecting
+        unintended text into agent prompts, or reading files outside the
+        configured `memoryDir`.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (your estimate)
+      description: Best-effort — the maintainer will confirm during triage.
+      options:
+        - Low (minor / defense-in-depth)
+        - Medium (real exposure but limited blast radius)
+        - High (data exposure or prompt manipulation)
+        - I'm not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce / proof of concept
+      description: |
+        Concrete steps to trigger the issue. A minimal repo or memory-file
+        example helps a lot. If you have a fix in mind, include it here.
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Output of `openclaw plugins inspect memory-inject`, or the installed version.
+      placeholder: "v0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: openclaw-version
+    attributes:
+      label: OpenClaw version
+      description: Output of `openclaw --version`
+      placeholder: "2026.6.9"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: disclosure
+    attributes:
+      label: Disclosure preference
+      description: How do you want this handled if confirmed?
+      options:
+        - Public fix + credit me in the release notes
+        - Public fix, but keep me anonymous
+        - Please contact me before publishing details
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Anything else — related issues, prior reports, mitigations you've applied.
+    validations:
+      required: false
