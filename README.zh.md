@@ -1,4 +1,9 @@
-# openclaw-memory-inject
+# @dannyge/openclaw-memory-inject
+
+[![CI](https://github.com/dannyge/openclaw-memory-inject/actions/workflows/ci.yml/badge.svg)](https://github.com/dannyge/openclaw-memory-inject/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@dannyge/openclaw-memory-inject)](https://www.npmjs.com/package/@dannyge/openclaw-memory-inject)
+[![license](https://img.shields.io/npm/l/@dannyge/openclaw-memory-inject)](./LICENSE)
+[![node](https://img.shields.io/node/v/@dannyge/openclaw-memory-inject)](https://www.npmjs.com/package/@dannyge/openclaw-memory-inject)
 
 > **[English](README.md)** | **[中文](README.zh.md)**
 
@@ -39,15 +44,21 @@ OpenClaw 的 `startupContext` 机制只在**裸 `/new` 或 `/reset`**（空消�
 
 要求 OpenClaw 2026.6+（引入 `session_start` 和 `before_prompt_build` hook 的版本）。
 
-### 方式一：从 GitHub 安装
+### 方式一：从 npm 安装（推荐）
+
+```bash
+openclaw plugins install @dannyge/openclaw-memory-inject
+```
+
+通过 `openclaw plugins update memory-inject` 更新。
+
+### 方式二：从 GitHub 安装
 
 ```bash
 openclaw plugins install dannyge/openclaw-memory-inject
 ```
 
-通过 `openclaw plugins update memory-inject` 更新。
-
-### 方式二：开发模式（本地链接）
+### 方式三：开发模式（本地链接）
 
 ```bash
 git clone https://github.com/dannyge/openclaw-memory-inject.git

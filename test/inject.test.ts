@@ -51,6 +51,14 @@ describe("createHookHandlers", () => {
     assert.ok(r1 && typeof r1 === "object" && "prependContext" in r1);
     assert.match(r1.prependContext!, /Recent memory/);
     assert.match(r1.prependContext!, /2026-06-23\.md/);
+    // Regression guard: the injected context MUST contain the file's actual
+    // contents (the beforeEach writes "today's notes"). A previous bug logged
+    // "injected 1 file" but emitted an empty block — the filename appeared
+    // while the body did not.
+    assert.ok(
+      r1.prependContext!.includes("today's notes"),
+      "injected context must include the real file body, not just the filename",
+    );
 
     // Second call on the same sessionKey: injection is skipped.
     const r2 = await handlers.handleBeforePromptBuild(

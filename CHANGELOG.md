@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Critical: file contents were never actually injected.** `buildContextBlock`
+  emitted a per-file header and an opening code fence, but never wrote the
+  file body nor closed the fence. The plugin logged "injected N memory file(s)"
+  while producing an empty block. `MemoryFileEntry` now carries `content`
+  populated by `loadMemoryFiles`, and `buildContextBlock` emits the body inside
+  a closed ```markdown fence. Added regression tests that assert the real file
+  body appears in the injected context.
+- `test/` was excluded from type-checking (`tsconfig.json` `exclude`), hiding a
+  broken `clearMemoryDir` helper (missing imports, dead code). Introduced
+  `tsconfig.test.json` and folded it into `npm run typecheck`; removed the dead
+  helper.
+
+### Added
+
+- npm publishing support: package renamed to scoped `@dannyge/openclaw-memory-inject`
+  (the `openclaw.plugin.json` `id` stays `memory-inject` for config backwards
+  compatibility). `publishConfig.access: public`, `prepublishOnly`/`prepack`
+  build gates, and a complete `files` allowlist (dist, manifest, both READMEs,
+  CHANGELOG, LICENSE).
+- GitHub Actions release workflow (`.github/workflows/release.yml`): pushing a
+  `v*` tag builds, tests, verifies the tag matches `package.json`, publishes to
+  npm, and creates a GitHub Release. Requires an `NPM_TOKEN` repo secret.
+- README badges (EN + ZH): CI status, npm version, license, Node version.
+- Version-consistency check (`scripts/check-version.mjs`, `npm run version-check`):
+  asserts `package.json` and `openclaw.plugin.json` versions match. Wired into CI.
+- Open-source governance files: `CONTRIBUTING.md`, `SECURITY.md`, PR template,
+  `CODEOWNERS`.
+- CI: replaced the redundant `lint` job with a `package-check` job that runs
+  `npm publish --dry-run` to validate the tarball.
+
 ### Changed
 
 - README (EN + ZH): added "Verifying after install" section with 3-step end-to-end verification (prepare memory files, trigger fresh session, check gateway log), multi-agent verification, and a "Verifying the config in effect" subsection

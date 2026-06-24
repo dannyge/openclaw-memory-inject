@@ -24,6 +24,17 @@ import type { MemoryFileEntry, MemoryLoadResult, ResolvedMemoryInjectConfig } fr
 
 type MemoryInjectResolvedConfig = ResolvedMemoryInjectConfig;
 
+/**
+ * A scanned memory file before its contents are read. The reading pass
+ * promotes this into a full `MemoryFileEntry` (with `content`).
+ */
+interface CandidateEntry {
+  absolutePath: string;
+  basename: string;
+  mtimeMs: number;
+  logicalDate: string | null;
+}
+
 /** Approximate characters per token. Conservative for English + CJK mixed prose. */
 const CHARS_PER_TOKEN = 4;
 
@@ -58,7 +69,7 @@ export async function loadMemoryFiles(opts: LoadMemoryOptions): Promise<MemoryLo
   const minDate = startOfLocalDay(nowMs);
   const cutoffMs = minDate - (config.daysToLoad - 1) * 24 * 60 * 60 * 1000;
 
-  const candidates: MemoryFileEntry[] = [];
+  const candidates: CandidateEntry[] = [];
 
   for (const name of entries) {
     if (!filenameRegex.test(name)) {
@@ -114,7 +125,7 @@ export async function loadMemoryFiles(opts: LoadMemoryOptions): Promise<MemoryLo
     }
 
     totalChars += content.length;
-    files.push(entry);
+    files.push({ ...entry, content });
   }
 
   return {
@@ -158,7 +169,10 @@ export function buildContextBlock(
     parts.push(`<file path="${rel}">`);
     parts.push("<!-- contents injected below; do not re-read unless asked -->");
     parts.push("");
+    parts.push("```markdown");
+    parts.push(entry.content);
     parts.push("```");
+    parts.push("");
   }
 
   parts.push(

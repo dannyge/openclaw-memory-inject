@@ -20,7 +20,7 @@ export interface MemoryInjectConfig {
 export type ResolvedMemoryInjectConfig = Required<MemoryInjectConfig>;
 
 /**
- * One scanned memory file, before we read its contents.
+ * One scanned memory file, with its (possibly truncated) contents read in.
  */
 export interface MemoryFileEntry {
   absolutePath: string;
@@ -31,6 +31,12 @@ export interface MemoryFileEntry {
    * a parseable date are tagged `null` here.
    */
   logicalDate: string | null;
+  /**
+   * The file's UTF-8 contents, truncated to the remaining character budget.
+   * Populated by `loadMemoryFiles` so the injector can embed it directly
+   * without re-reading from disk.
+   */
+  content: string;
 }
 
 /**

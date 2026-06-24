@@ -26,13 +26,6 @@ afterEach(async () => {
   await rm(workspaceDir, { recursive: true, force: true });
 });
 
-async function clearMemoryDir(): Promise<void> {
-  const entries = await readdir(memoryDir).catch(() => [] as string[]);
-  for (const e of entries) {
-    await unlink(join(memoryDir, e)).catch(() => {});
-  }
-}
-
 const NOW_MS = new Date("2026-06-23T12:00:00Z").getTime();
 const TODAY_LOCAL = new Date(NOW_MS).toISOString().slice(0, 10);
 
@@ -159,6 +152,7 @@ describe("buildContextBlock", () => {
             basename: "2026-06-23.md",
             mtimeMs: NOW_MS,
             logicalDate: "2026-06-23",
+            content: "the actual file body",
           },
         ],
         totalChars: 12,
@@ -171,5 +165,36 @@ describe("buildContextBlock", () => {
     assert.match(block, /## Recent memory/);
     assert.match(block, /2026-06-23\.md/);
     assert.match(block, /Total: 1 file/);
+  });
+
+  it("embeds the actual file content in a closed code block", () => {
+    // Regression guard: the injected block MUST contain the file's real
+    // contents, not just its filename header. A previous bug built the block
+    // without ever writing `entry.content`, producing an empty output.
+    const cfg = resolveConfig({});
+    const body = "this is the real memory body — it must appear verbatim";
+    const block = buildContextBlock(
+      {
+        files: [
+          {
+            absolutePath: join(memoryDir, "2026-06-23.md"),
+            basename: "2026-06-23.md",
+            mtimeMs: NOW_MS,
+            logicalDate: "2026-06-23",
+            content: body,
+          },
+        ],
+        totalChars: body.length,
+        truncatedByTokenBudget: false,
+        truncatedByFileCount: false,
+      },
+      workspaceDir,
+      cfg,
+    );
+    // The body must appear verbatim in the injected context.
+    assert.ok(block.includes(body), "file body content must be present in the injected block");
+    // The fenced code block must be closed (``` ... ```).
+    const fences = block.match(/```/g);
+    assert.ok(fences && fences.length % 2 === 0, "code fence must be balanced (opened and closed)");
   });
 });

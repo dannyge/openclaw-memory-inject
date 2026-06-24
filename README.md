@@ -1,4 +1,9 @@
-# openclaw-memory-inject
+# @dannyge/openclaw-memory-inject
+
+[![CI](https://github.com/dannyge/openclaw-memory-inject/actions/workflows/ci.yml/badge.svg)](https://github.com/dannyge/openclaw-memory-inject/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@dannyge/openclaw-memory-inject)](https://www.npmjs.com/package/@dannyge/openclaw-memory-inject)
+[![license](https://img.shields.io/npm/l/@dannyge/openclaw-memory-inject)](./LICENSE)
+[![node](https://img.shields.io/node/v/@dannyge/openclaw-memory-inject)](https://www.npmjs.com/package/@dannyge/openclaw-memory-inject)
 
 > **[English](README.md)** | **[中文](README.zh.md)**
 
@@ -78,7 +83,13 @@ session.
 Requires OpenClaw 2026.6+ (the version where `session_start` and
 `before_prompt_build` hooks became available).
 
-### From GitHub (stable)
+### From npm (recommended)
+
+```bash
+openclaw plugins install @dannyge/openclaw-memory-inject
+```
+
+### From GitHub
 
 ```bash
 openclaw plugins install dannyge/openclaw-memory-inject

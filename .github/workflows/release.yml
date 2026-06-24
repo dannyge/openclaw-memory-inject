@@ -1,0 +1,94 @@
+name: Release
+
+# Triggered by pushing a `v*` tag (e.g. `v0.1.1`). The workflow:
+#   1. Builds and tests.
+#   2. Asserts the tag version matches package.json.
+#   3. Publishes to npm.
+#   4. Creates a GitHub Release with the CHANGELOG.
+#
+# Setup required (one-time):
+#   - Create a Granular Access Token at
+#     https://www.npmjs.com/settings/<you>/tokens (New Granular Access Token).
+#     Classic "Automation" tokens are being removed by npm (Dec 2025).
+#   - Token settings for a FIRST publish (package doesn't exist yet on npm):
+#       * Permissions: "Read and write".
+#       * Select Packages: "All packages" — until first publish the package is
+#         not on npm yet, so the "Only select packages" dropdown is empty.
+#         After first publish you can replace this token with one scoped to
+#         just "@dannyge/openclaw-memory-inject".
+#       * Organizations: leave at "No access" (personal-scope packages don't
+#         need an organization).
+#       * Bypass two-factor authentication: CHECK — required for unattended CI.
+#       * Expiration: your call (90 days is a reasonable default).
+#   - Add it as an `NPM_TOKEN` secret under Settings → Secrets and variables
+#     → Actions.
+#
+# To cut a release locally:
+#   npm version patch   # bumps package.json + openclaw.plugin.json (keep in sync!)
+#   git push && git push --tags
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Version consistency
+        run: npm run version-check
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          PKG=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Tag version ($TAG) does not match package.json ($PKG)"
+            exit 1
+          fi
+          echo "Tag $TAG matches package version $PKG"
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            See [CHANGELOG.md](https://github.com/dannyge/openclaw-memory-inject/blob/main/CHANGELOG.md) for full details.
+
+            ## Install
+
+            ```
+            openclaw plugins install @dannyge/openclaw-memory-inject
+            ```
