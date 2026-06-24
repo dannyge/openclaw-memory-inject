@@ -471,33 +471,9 @@ the agent's turn. The session continues without injected memory.
 
 ## Development
 
-```bash
-git clone https://github.com/dannyge/openclaw-memory-inject.git
-cd openclaw-memory-inject
-npm install
-```
-
-Build:
-
-```bash
-npm run build
-```
-
-Test:
-
-```bash
-npm test
-```
-
-Tests use Node.js built-in `node:test` and `node:assert`. No test framework
-dependencies are required. The project has zero runtime dependencies — only
-`typescript`, `tsx`, and `@types/node` as dev dependencies.
-
-Type-check without emitting:
-
-```bash
-npm run typecheck
-```
+Interested in contributing? See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the
+full development setup — build, test, type-check commands, code style, and the
+release flow.
 
 Key source files:
 
@@ -518,5 +494,7 @@ MIT — see the `LICENSE` file or `package.json`.
 
 Issues and pull requests are welcome at
 [https://github.com/dannyge/openclaw-memory-inject/issues](https://github.com/dannyge/openclaw-memory-inject/issues).
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for development setup, code style,
+and the release flow.
 
 Author: [dannyge](https://github.com/dannyge)

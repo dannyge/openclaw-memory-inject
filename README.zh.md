@@ -381,13 +381,8 @@ openclaw config set diagnostics.logLevel debug
 
 ## 开发
 
-```bash
-git clone https://github.com/dannyge/openclaw-memory-inject.git
-cd openclaw-memory-inject
-npm install
-npm run build      # 编译 TypeScript → dist/
-npm test           # 运行测试
-```
+想参与贡献？完整开发环境搭建见 **[CONTRIBUTING.md](CONTRIBUTING.md)**
+（构建、测试、类型检查命令、代码规范、发布流程）。
 
 ### 项目结构
 
@@ -411,3 +406,4 @@ MIT
 
 - 作者：[dannyge](https://github.com/dannyge)
 - 问题反馈：[https://github.com/dannyge/openclaw-memory-inject/issues](https://github.com/dannyge/openclaw-memory-inject/issues)
+- 贡献指南：**[CONTRIBUTING.md](CONTRIBUTING.md)**
