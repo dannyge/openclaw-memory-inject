@@ -1,0 +1,43 @@
+{
+  "name": "openclaw-memory-inject",
+  "version": "0.1.0",
+  "description": "OpenClaw plugin: auto-inject recent memory/*.md files into new sessions via before_prompt_build hook.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "openclaw": {
+    "extensions": ["./dist/index.js"],
+    "hooks": ["./dist/index.js"]
+  },
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --import tsx test/*.test.ts",
+    "test:watch": "node --test --import tsx --watch test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "memory",
+    "session",
+    "context"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "tsx": "^4.19.0"
+  }
+}

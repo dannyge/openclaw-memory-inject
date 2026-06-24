@@ -1,0 +1,74 @@
+{
+  "id": "memory-inject",
+  "name": "Memory Inject",
+  "description": "Auto-inject recent memory/*.md files into new sessions so agents have continuity across new threads and /new resets. Lightweight, multi-agent, fail-open.",
+  "version": "0.1.0",
+  "kind": "context",
+  "author": "dannyge",
+  "license": "MIT",
+  "homepage": "https://github.com/dannyge/openclaw-memory-inject",
+  "repository": "https://github.com/dannyge/openclaw-memory-inject",
+  "entry": "dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Master switch. When false, the plugin loads but performs no injection."
+      },
+      "memoryDir": {
+        "type": "string",
+        "default": "memory",
+        "description": "Memory directory relative to the agent workspaceDir. Default: 'memory' (resolves to <workspaceDir>/memory)."
+      },
+      "daysToLoad": {
+        "type": "number",
+        "default": 2,
+        "minimum": 1,
+        "maximum": 365,
+        "description": "How many recent days of memory files to consider. Default 2 = today + yesterday."
+      },
+      "maxFiles": {
+        "type": "number",
+        "default": 4,
+        "minimum": 1,
+        "maximum": 100,
+        "description": "Maximum number of memory files to inject per session. Files beyond this are dropped (newest first by mtime)."
+      },
+      "maxTokens": {
+        "type": "number",
+        "default": 4000,
+        "minimum": 100,
+        "maximum": 128000,
+        "description": "Soft cap on the total size of injected memory content. Estimated as characters / 4. Files are dropped (oldest first) once the cap is exceeded."
+      },
+      "filenamePattern": {
+        "type": "string",
+        "default": "^\\d{4}-\\d{2}-\\d{2}(-.+)?\\.md$",
+        "description": "Regular expression matched against each file basename. Files that do not match are ignored. The default matches YYYY-MM-DD.md and YYYY-MM-DD-<slug>.md."
+      },
+      "excludeAgents": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "description": "Agent ids that should never receive memory injection (for example, agents that handle sensitive workloads or already manage their own context loading)."
+      },
+      "contextLabel": {
+        "type": "string",
+        "default": "Recent memory (auto-injected by memory-inject plugin)",
+        "description": "Header line prepended to the injected context block. Set empty to omit."
+      }
+    }
+  },
+  "uiHints": {
+    "memoryDir": { "label": "Memory directory" },
+    "daysToLoad": { "label": "Days to load" },
+    "maxFiles": { "label": "Max files per session" },
+    "maxTokens": { "label": "Token budget" },
+    "filenamePattern": { "label": "Filename regex", "advanced": true },
+    "excludeAgents": { "label": "Excluded agent ids", "advanced": true },
+    "contextLabel": { "label": "Context label", "advanced": true }
+  }
+}
