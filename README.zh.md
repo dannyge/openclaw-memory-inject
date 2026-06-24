@@ -1,5 +1,7 @@
 # openclaw-memory-inject
 
+> **[English](README.md)** | **[中文](README.zh.md)**
+
 新会话自动注入最近的 memory 文件，让 agent 在每次新对话中都能延续上下文。
 
 ## 问题背景

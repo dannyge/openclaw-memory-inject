@@ -1,5 +1,7 @@
 # openclaw-memory-inject
 
+> **[English](README.md)** | **[中文](README.zh.md)**
+
 Auto-inject recent memory files into new sessions so OpenClaw agents maintain
 continuity across Discord threads and `/new` resets.
 
@@ -10,6 +12,18 @@ types `/new` or `/reset` with an empty message. It does **not** fire when a new
 session is created through a Discord thread — which is how many agents receive
 most of their conversations. This means agents lose all memory continuity on
 every new thread.
+
+The same "memory doesn't carry across sessions" gap has been raised in the
+OpenClaw community multiple times:
+
+- [#11618](https://github.com/openclaw/openclaw/issues/11618) — "Hook to inject
+  relevant memory on session start" (closed/completed). This issue ultimately
+  led OpenClaw 2026.6 to add the `session_start` and `before_prompt_build`
+  plugin hooks, which this plugin is built on top of.
+- [#32905](https://github.com/openclaw/openclaw/issues/32905) — "session-memory
+  hook saves context but never recalls" (closed/not_planned). Describes the
+  gap where `session-memory` only saves but never auto-restores context in new
+  sessions — the exact gap this plugin fills.
 
 **memory-inject** closes that gap. It watches for new sessions via the
 `session_start` hook, then injects your most recent `memory/*.md` files into
