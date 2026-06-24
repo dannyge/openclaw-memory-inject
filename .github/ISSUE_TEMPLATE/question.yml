@@ -1,0 +1,45 @@
+name: Question
+description: Ask a question about usage, configuration, or behavior.
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For usage questions, please make sure you've read the README's
+        "Verifying after install" and "Troubleshooting" sections first.
+
+  - type: input
+    id: openclaw-version
+    attributes:
+      label: OpenClaw version
+      description: Output of `openclaw --version`
+      placeholder: "2026.6.9"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Output of `openclaw plugins inspect memory-inject`
+      placeholder: "v0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to know?
+    validations:
+      required: true
+
+  - type: textarea
+    id: already-tried
+    attributes:
+      label: What you've already tried
+      description: |
+        If applicable, list the steps you've taken from the README's
+        troubleshooting section and what you found.
+    validations:
+      required: false

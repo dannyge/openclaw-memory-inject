@@ -1,0 +1,47 @@
+name: Feature request
+description: Suggest a new feature or improvement.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing a feature request, please search existing issues — this
+        repo tracks work via GitHub Issues and dupe requests slow things down.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What limitation are you hitting? Be specific about the workflow that does not work today.
+      placeholder: |
+        I run multiple agents and the memory I want injected differs per agent
+        (some agents are pure ops work, others are research-focused). Today the
+        plugin uses one global `filenamePattern`, so I can't filter by topic.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: How would you like the plugin to behave?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches have you considered? This helps maintainers weigh tradeoffs.
+    validations:
+      required: false
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+    attributes:
+      description: |
+        Which agent(s) and workflow would benefit? Concrete examples help.
+    validations:
+      required: false

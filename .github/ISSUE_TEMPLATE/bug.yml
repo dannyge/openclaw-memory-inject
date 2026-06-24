@@ -1,0 +1,91 @@
+name: Bug report
+description: Report something that is not working as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please fill in the sections below — empty bug reports are hard to act on.
+
+  - type: input
+    id: openclaw-version
+    attributes:
+      label: OpenClaw version
+      description: Output of `openclaw --version`
+      placeholder: "2026.6.9"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Output of `gh release view --json tagName -q '.tagName'` for this repo, or `openclaw plugins inspect memory-inject`
+      placeholder: "v0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: Install method
+      description: How did you install the plugin?
+      options:
+        - "openclaw plugins install dannyge/openclaw-memory-inject"
+        - "openclaw plugins install --link /local/path"
+        - "Other (specify in description)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Plugin configuration
+      description: Output of `openclaw config get plugins.entries.memory-inject.config`. If using defaults, say so.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: What did you do, what did you expect, what happened instead?
+      placeholder: |
+        1. Send a message in a fresh Discord thread for agent X
+        2. Expect: gateway log shows `[memory-inject] injected N file(s)`
+        3. Actual: log shows nothing (or shows the wrong count)
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant gateway log lines
+      description: |
+        Run `grep "\[memory-inject\]" ~/Library/Logs/openclaw/gateway.log | tail -20`
+        and paste the output. If the log is empty, also include the surrounding
+        `[hooks]` and `[plugins]` lines around the time of the test.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: memory-dir
+    attributes:
+      label: Memory files in your workspace
+    attributes:
+      description: |
+        Output of `ls -la ~/.openclaw/agents/<agentId>/workspace/memory/`
+        for the affected agent. Helps confirm the file pattern and mtime.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Anything else that might be relevant — OS, OpenClaw install method, custom filenamePattern, etc.
+    validations:
+      required: false
