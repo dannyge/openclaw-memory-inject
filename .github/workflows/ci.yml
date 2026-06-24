@@ -14,7 +14,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [20, 22]
+        # Node 20 is EOL (Apr 2026) and unsupported by OpenClaw (requires 22.19+).
+        # 22 = OpenClaw's minimum; 24 = OpenClaw's recommended default.
+        node-version: [22, 24]
 
     steps:
       - name: Checkout

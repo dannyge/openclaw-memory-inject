@@ -1,6 +1,6 @@
 {
   "name": "@dannyge/openclaw-memory-inject",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "OpenClaw plugin: auto-inject recent memory/*.md files into new sessions via before_prompt_build hook.",
   "type": "module",
   "main": "dist/index.js",
@@ -53,7 +53,7 @@
     "email": "dannyge@users.noreply.github.com"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19"
   },
   "publishConfig": {
     "access": "public"

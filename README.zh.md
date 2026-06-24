@@ -42,7 +42,9 @@ OpenClaw 的 `startupContext` 机制只在**裸 `/new` 或 `/reset`**（空消�
 
 ## 安装
 
-要求 OpenClaw 2026.6+（引入 `session_start` 和 `before_prompt_build` hook 的版本）。
+要求 **Node.js 22.19+**（推荐 Node 24）和 **OpenClaw 2026.6+**（引入
+`session_start` 和 `before_prompt_build` hook 的版本）。不支持 Node 20 —— 它已 EOL，
+且 OpenClaw 本身就要求 22.19+。
 
 ### 方式一：从 npm 安装（推荐）
 

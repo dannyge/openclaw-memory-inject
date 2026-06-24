@@ -80,8 +80,10 @@ session.
 
 ## Installation
 
-Requires OpenClaw 2026.6+ (the version where `session_start` and
-`before_prompt_build` hooks became available).
+Requires **Node.js 22.19+** (Node 24 recommended) and **OpenClaw 2026.6+** (the
+version where `session_start` and `before_prompt_build` hooks became
+available). Node 20 is not supported — it is EOL and OpenClaw itself requires
+22.19+.
 
 ### From npm (recommended)
 

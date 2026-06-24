@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-24
+
 ### Fixed
 
 - **Critical: file contents were never actually injected.** `buildContextBlock`
@@ -41,6 +43,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Raised minimum Node.js from 20 to 22.19**, aligned with OpenClaw's own
+  runtime requirement (OpenClaw requires Node 22.19+, Node 24 recommended).
+  Node 20 is EOL (Apr 2026) and unsupported by OpenClaw. CI matrix updated
+  `[20, 22]` → `[22, 24]`; added `.npmrc` with `engine-strict=true` so local/CI
+  installs hard-fail on unsupported Node versions.
+- CI: bumped GitHub Actions to Node 24 runtime — `actions/checkout` v4→v5,
+  `actions/setup-node` v4→v5, `softprops/action-gh-release` v2→v3 (clears the
+  Node 20 runner deprecation warning).
 - README (EN + ZH): added "Verifying after install" section with 3-step end-to-end verification (prepare memory files, trigger fresh session, check gateway log), multi-agent verification, and a "Verifying the config in effect" subsection
 - README (EN + ZH): added "Log format reference" section with a level table, anatomy of the success log line, and instructions for enabling debug-level output
 - README (EN + ZH): restructured "Troubleshooting" into 4 specific scenarios: "no memory files found", "hook not firing", "`injected 0 memory file(s)` is expected", and "errors in the log"
@@ -61,4 +71,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Manifest file (`openclaw.plugin.json`) with full `configSchema` for dashboard config UI rendering
 - MIT license
 
+[Unreleased]: https://github.com/dannyge/openclaw-memory-inject/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/dannyge/openclaw-memory-inject/releases/tag/v0.2.0
 [0.1.0]: https://github.com/dannyge/openclaw-memory-inject/releases/tag/v0.1.0

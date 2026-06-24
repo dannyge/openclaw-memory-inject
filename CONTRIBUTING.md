@@ -11,7 +11,10 @@ cd openclaw-memory-inject
 npm install
 ```
 
-Requirements: Node.js 20+ (the `engines` field in `package.json` enforces this).
+Requirements: Node.js 22.19+ (aligned with OpenClaw's own minimum; OpenClaw
+does not run on Node 20, which is also EOL). The `engines` field in
+`package.json` declares this, and `.npmrc` (`engine-strict=true`) enforces it
+locally. Node 24 (OpenClaw's recommended default) is the smoothest experience.
 
 ## Common tasks
 
